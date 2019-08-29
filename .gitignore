@@ -1,0 +1,25 @@
+# Ignore all the following files
+
+# ignore all logs files
+Mask_RCNN/logs/*
+
+# Ignore all .h5 weight files
+*.h5
+*.jpg
+*.JPG
+
+# Ignore all datasets
+Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/mask/*
+Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/test/*
+Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/train/*
+Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/val/*
+Mask_RCNN/samples/crossarm/saved_pickles/*
+
+# Don't ignore keep files
+!Mask_RCNN/logs/.keep
+!Mask_RCNN/samples/weights/.keep
+!Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/mask/.keep
+!Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/test/.keep
+!Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/train/.keep
+!Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/val/.keep
+!Mask_RCNN/samples/crossarm/saved_pickles/.keep
