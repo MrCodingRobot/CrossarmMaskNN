@@ -49,6 +49,7 @@ for image_path in tqdm.tqdm(image_path_list):
 		with open('saved_pickles/{}.pickle'.format(Path(image_path).stem), 'rb') as handle:
 			r = pickle.load(handle)
 		
-	classes.ResultManager(image, r)
+	result_manager = classes.ResultManager(image, r, image_path)
+	result_manager.display()
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
