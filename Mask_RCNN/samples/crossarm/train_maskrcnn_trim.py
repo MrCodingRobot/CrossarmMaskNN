@@ -32,6 +32,7 @@ import numpy as np
 import skimage.draw
 import argparse
 from pathlib import Path
+import traceback
 
 import email_notification
 import global_variables as glo_var
@@ -182,12 +183,12 @@ def train(model, epoch, layers):
 	
 	# Training dataset.
 	dataset_train = CrossarmDataset()
-	dataset_train.load_crossarm(args.dataset, "train")
+	dataset_train.load_crossarm(glo_var.DATASET_DIR, "train")
 	dataset_train.prepare()
 
 	# Validation dataset
 	dataset_val = CrossarmDataset()
-	dataset_val.load_crossarm(args.dataset, "val")
+	dataset_val.load_crossarm(glo_var.DATASET_DIR, "val")
 	dataset_val.prepare()
 	
 	if layers == "heads":
@@ -217,9 +218,6 @@ if __name__ == '__main__':
 	# Parse command line arguments
 	parser = argparse.ArgumentParser(
 		description='Train Mask R-CNN to detect crossarms.')
-	parser.add_argument('--dataset', required=True,
-						metavar="/path/to/crossarm/dataset/",
-						help='Directory of the Crossarm dataset')
 	parser.add_argument('--weights', required=True,
 						metavar="/path/to/weights.h5",
 						help="Path to weights .h5 file or 'coco'")
@@ -236,7 +234,6 @@ if __name__ == '__main__':
 	args.epoch = int(args.epoch)
 
 	print("Weights: ", args.weights)
-	print("Dataset: ", args.dataset)
 	print("Layers: ", args.layers)
 	print("Epoch: ", args.epoch)
 	print("Logs: ", args.logs)
@@ -245,10 +242,10 @@ if __name__ == '__main__':
 	assert args.epoch >= 0 or args.epoch < 200, "Epoch value is not within range (1-200)"
 	assert args.layers == "all" or args.layers == "heads", "layers only can be 'all' or 'heads'" 
 	
-	path_object = Path(args.dataset) 
+	path_object = Path(glo_var.DATASET_DIR) 
 	if path_object.exists() is False:
 		print("Given dataset path: {} does not exists, trying relative path".format(str(path_object)))
-		alternative_path = os.path.join(os.getcwd(),args.image)
+		alternative_path = os.path.join(os.getcwd(),glo_var.DATASET_DIR)
 		path_object = Path(alternative_path)
 		assert path_object.exists(), "Relative path: {} does not exists".format(str(path_object))
 
@@ -260,8 +257,10 @@ if __name__ == '__main__':
 	# Select weights file to load
 	if args.weights.lower() == "coco":
 		weights_path = COCO_WEIGHTS_PATH
+		print("COCO Path: {}".format(weights_path))
 		# Download weights file
 		if not os.path.exists(weights_path):
+			print("COCO Weights not found locally, downloading weights")
 			utils.download_trained_weights(weights_path)
 	elif args.weights.lower() == "last":
 		# Find last trained weights
@@ -286,8 +285,14 @@ if __name__ == '__main__':
 	# Train or evaluate
 	try:
 		train(model, args.epoch, args.layers)
+	except KeyboardInterrupt:
+		print("KeyboardInterrupt Detected")
 	except:
 		subject = "NEURAL NETWORK TRAINING FAILURE"
-		text = "NEURAL NETWORK TRAINING FAILURE"
+		text = traceback.format_exc()
 		email_notification.send_email(subject,text)
+		
+		print(text)
+		
+		
 		

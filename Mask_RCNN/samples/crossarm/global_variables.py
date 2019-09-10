@@ -33,4 +33,9 @@ CLASS_NAMES = ['BG', 'crossarm', 'bicycle', 'car', 'motorcycle', 'airplane',
 ROOT_DIR = os.path.abspath("../../")
 DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 
+if sys.platform.startswith("win32"):
+	DATASET_DIR = os.path.join(ROOT_DIR, r"samples\crossarm\crossarm_dataset\crossarm")
+elif sys.platform.startswith("linux"):
+	DATASET_DIR = os.path.join(ROOT_DIR, "samples/crossarm/crossarm_dataset/crossarm")
+
 SHARED_MASK_RATIO_THRESHOLD = 30
