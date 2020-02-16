@@ -7,6 +7,7 @@ Mask_RCNN/logs/*
 *.h5
 *.jpg
 *.JPG
+*.json
 
 # Ignore all datasets
 Mask_RCNN/samples/crossarm/crossarm_dataset/crossarm/mask/*

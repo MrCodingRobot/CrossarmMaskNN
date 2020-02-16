@@ -5,6 +5,7 @@ Train on the toy crossarm dataset and implement color splash effect.
 Copyright (c) 2018 Matterport, Inc.
 Licensed under the MIT License (see LICENSE for details)
 Written by Waleed Abdulla
+Modified by Eduardo Davalos
 
 ------------------------------------------------------------
 

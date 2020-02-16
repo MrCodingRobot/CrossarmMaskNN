@@ -30,9 +30,11 @@ import json
 import datetime
 import numpy as np
 import skimage.draw
+import skimage.io
 import argparse
 from pathlib import Path
 import traceback
+#import cv2
 
 import email_notification
 import global_variables as glo_var
@@ -130,7 +132,11 @@ class CrossarmDataset(utils.Dataset):
 			# Unfortunately, VIA doesn't include it in JSON, so we must read
 			# the image. This is only managable since the dataset is tiny.
 			image_path = os.path.join(dataset_dir, a['filename'])
-			image = skimage.io.imread(image_path)
+			print(image_path)
+			image = skimage.io.imread(image_path, plugin='matplotlib')
+			#image = cv2.imread(image_path)
+			#image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+			print(image.shape[:2])
 			height, width = image.shape[:2]
 
 			self.add_image(
