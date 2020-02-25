@@ -8,11 +8,6 @@ import os
 This module contains all the necessary global variables of the network_controller.
 """
 
-RASPBERRY_PI_EMAIL = "raspberry.pi.water.stations@gmail.com"
-RASPBERRY_PI_EMAIL_PASSWORD = 'WaterStation'
-
-PERSONAL_EMAIL = "davalosaeduardo@gmail.com"
-
 CLASS_NAMES = ['BG', 'crossarm', 'bicycle', 'car', 'motorcycle', 'airplane',
                'bus', 'train', 'truck', 'boat', 'traffic light',
                'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird',
@@ -37,5 +32,3 @@ if sys.platform.startswith("win32"):
 	DATASET_DIR = os.path.join(ROOT_DIR, r"samples\crossarm\crossarm_dataset\crossarm")
 elif sys.platform.startswith("linux"):
 	DATASET_DIR = os.path.join(ROOT_DIR, "samples/crossarm/crossarm_dataset/crossarm")
-
-SHARED_MASK_RATIO_THRESHOLD = 30

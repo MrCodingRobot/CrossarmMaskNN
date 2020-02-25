@@ -7,24 +7,11 @@ import sys
 import collections
 import os
 
-#----------------------------------------------------------------------------------
-# Constants
+# Local Imports
+ROOT_DIR = os.path.abspath("../../")
+sys.path.append(ROOT_DIR)
 
-CLASS_NAMES = ['BG', 'crossarm', 'bicycle', 'car', 'motorcycle', 'airplane',
-               'bus', 'train', 'truck', 'boat', 'traffic light',
-               'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird',
-               'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear',
-               'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie',
-               'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
-               'kite', 'baseball bat', 'baseball glove', 'skateboard',
-               'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup',
-               'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
-               'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
-               'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed',
-               'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote',
-               'keyboard', 'cell phone', 'microwave', 'oven', 'toaster',
-               'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors',
-               'teddy bear', 'hair drier', 'toothbrush']
+import global_variables as gv
 
 #-----------------------------------------------------------------------------------------
 # Class
@@ -35,7 +22,7 @@ class InstanceData():
 	
 		# Data: box, mask, class_id, score
 		self.box, self.mask, self.class_id, self.score = data
-		self.label = CLASS_NAMES[self.class_id]
+		self.label = gv.CLASS_NAMES[self.class_id]
 		self.unique = True
 		
 		self.make_mask_np_friendly()
